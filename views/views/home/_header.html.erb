@@ -1,0 +1,65 @@
+<style>
+.bg-pastel-orange{
+  background-color: #ffd8a8;
+}
+</style>
+
+<nav class="navbar navbar-expand-lg bg-pastel-orange text-dark">
+  <div class="container-fluid">
+    
+    
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ">
+
+        <li class="nav-item">
+          <%= link_to "Home", root_path, class: "nav-link" %>
+        </li>
+
+        <% unless authenticated? %>
+          <li class="nav-item">
+            <%= link_to "Login", new_session_path, class: "nav-link" %>
+          </li>
+        <% end %>
+
+        <% if authenticated? %>
+          <li class="nav-item">
+            <%= button_to "Log out", session_path, method: :delete, class: "btn nav-link" %>
+          </li>
+        <% end %>
+
+        <!-- Trips Dropdown -->
+        <% if @trips.present? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Trips
+            </a>
+            <ul class="dropdown-menu">
+              <% @trips.each do |trip| %>
+                <li><%= link_to trip.name, trip_path(trip), class: "dropdown-item" %></li>
+              <% end %>
+
+              <% if authenticated? %>
+          <li class="nav-item">
+            <%= link_to "New Trip", new_trip_path, class: "dropdown-item" %>
+          </li>
+        <% end %>
+
+            </ul>
+          </li>
+        <% end %>
+
+        <!-- About Me Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            About Me
+          </a>
+          <ul class="dropdown-menu">
+            <li>pancakes</li>
+            <li>waffles</li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
